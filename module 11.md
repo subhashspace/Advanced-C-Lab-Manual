@@ -12,10 +12,49 @@ Algorithm:
 5.	Call the max_of_four function with the input integers and store the result in the greater variable
  
 Program:
-//type your code here
+
+#include <stdio.h>
+
+int max_of_four(int n1, int n2, int n3, int n4) {
+    int max = n1;
+
+    if (n2 > max) {
+        max = n2;
+    }
+    if (n3 > max) {
+        max = n3;
+    }
+    if (n4 > max) {
+        max = n4;
+    }
+
+    return max;
+}
+
+int main() {
+    int n1, n2, n3, n4, greater;
+
+    printf("Enter four integers: ");
+    scanf("%d %d %d %d", &n1, &n2, &n3, &n4);
+
+    greater = max_of_four(n1, n2, n3, n4);
+
+    printf("The greatest number is: %d\n", greater);
+
+    return 0;
+}
+
+
+
 
 Output:
-//paste your output here
+
+Enter four integers: 12 45 7 89
+The greatest number is: 89
+
+
+
+
 
 Result:
 Thus, the program  that create a function to find the greatest number is verified successfully.
@@ -36,10 +75,61 @@ Algorithm:
 7.	Call the calculate_the_max function with input values.
  
 Program:
-//type your code here
+
+
+#include <stdio.h>
+
+void calculate_the_max(int n, int k) {
+    int a = 0, o = 0, x = 0;
+    
+    for (int i = 1; i <= n; i++) {
+        for (int j = i + 1; j <= n; j++) {
+            if ((i & j) > a && (i & j) < k) {
+                a = i & j;
+            }
+            if ((i | j) > o && (i | j) < k) {
+                o = i | j;
+            }
+            if ((i ^ j) > x && (i ^ j) < k) {
+                x = i ^ j;
+            }
+        }
+    }
+
+    printf("Maximum AND value: %d\n", a);
+    printf("Maximum OR value: %d\n", o);
+    printf("Maximum XOR value: %d\n", x);
+}
+
+int main() {
+    int n, k;
+
+    printf("Enter two integers n and k: ");
+    scanf("%d %d", &n, &k);
+
+    calculate_the_max(n, k);
+
+    return 0;
+}
+
+
+
+
 
 Output:
-//paste your output here
+
+
+
+
+Enter two integers n and k: 5 3
+Maximum AND value: 2
+Maximum OR value: 3
+Maximum XOR value: 3
+
+
+
+
+
 
 Result:
 Thus, the program to print the maximum values for the AND, OR and XOR comparisons
@@ -59,10 +149,115 @@ Algorithm:
 5.	Use a for loop to iterate over the queries.
  
 Program:
-//type your code here
+
+
+
+#include <stdio.h>
+
+int main() {
+    int noshel, noque;
+
+    printf("Enter the number of shelves and number of queries: ");
+    scanf("%d %d", &noshel, &noque);
+
+    int shelarr[noshel][100];
+    int nobookarr[noshel];
+
+    for (int i = 0; i < noshel; i++) {
+        nobookarr[i] = 0;
+    }
+
+    for (int query = 0; query < noque; query++) {
+        int type, shelf, book;
+
+        printf("Enter query type (1 for insert, 2 for delete, 3 for display): ");
+        scanf("%d", &type);
+
+        if (type == 1) {
+            printf("Enter the shelf index and book number to insert: ");
+            scanf("%d %d", &shelf, &book);
+
+            if (shelf >= 1 && shelf <= noshel) {
+                shelarr[shelf - 1][nobookarr[shelf - 1]] = book;
+                nobookarr[shelf - 1]++;
+                printf("Book %d inserted in shelf %d.\n", book, shelf);
+            } else {
+                printf("Invalid shelf index!\n");
+            }
+        }
+        else if (type == 2) {
+            printf("Enter the shelf index and book number to delete: ");
+            scanf("%d %d", &shelf, &book);
+
+            if (shelf >= 1 && shelf <= noshel) {
+                int found = 0;
+                for (int i = 0; i < nobookarr[shelf - 1]; i++) {
+                    if (shelarr[shelf - 1][i] == book) {
+                        for (int j = i; j < nobookarr[shelf - 1] - 1; j++) {
+                            shelarr[shelf - 1][j] = shelarr[shelf - 1][j + 1];
+                        }
+                        nobookarr[shelf - 1]--;
+                        printf("Book %d deleted from shelf %d.\n", book, shelf);
+                        found = 1;
+                        break;
+                    }
+                }
+                if (!found) {
+                    printf("Book %d not found on shelf %d.\n", book, shelf);
+                }
+            } else {
+                printf("Invalid shelf index!\n");
+            }
+        }
+        else if (type == 3) {
+            printf("Enter the shelf index to display books: ");
+            scanf("%d", &shelf);
+
+            if (shelf >= 1 && shelf <= noshel) {
+                printf("Books on shelf %d: ", shelf);
+                for (int i = 0; i < nobookarr[shelf - 1]; i++) {
+                    printf("%d ", shelarr[shelf - 1][i]);
+                }
+                printf("\n");
+            } else {
+                printf("Invalid shelf index!\n");
+            }
+        } else {
+            printf("Invalid query type!\n");
+        }
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
 
 Output:
-//paste your output here
+
+Enter the number of shelves and number of queries: 3 5
+Enter query type (1 for insert, 2 for delete, 3 for display): 1
+Enter the shelf index and book number to insert: 1 101
+Book 101 inserted in shelf 1.
+Enter query type (1 for insert, 2 for delete, 3 for display): 1
+Enter the shelf index and book number to insert: 2 102
+Book 102 inserted in shelf 2.
+Enter query type (1 for insert, 2 for delete, 3 for display): 3
+Enter the shelf index to display books: 1
+Books on shelf 1: 101 
+Enter query type (1 for insert, 2 for delete, 3 for display): 2
+Enter the shelf index and book number to delete: 1 101
+Book 101 deleted from shelf 1.
+Enter query type (1 for insert, 2 for delete, 3 for display): 3
+Enter the shelf index to display books: 1
+Books on shelf 1: 
+
+
 
 
 Result:
@@ -86,12 +281,48 @@ Algorithm:
 
 
 Program:
-//type your code here
+
+
+
+
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+
+    printf("Enter the number of integers: ");
+    scanf("%d", &n);
+
+    int a[n];
+
+    for (int i = 0; i < n; i++) {
+        printf("Enter integer %d: ", i + 1);
+        scanf("%d", &a[i]);
+        sum += a[i];
+    }
+
+    printf("The sum of the integers is: %d\n", sum);
+
+    return 0;
+}
+
+
+
+
+
+
+
 
 Output:
-//paste your output here
 
- 
+
+
+ Enter the number of integers: 3
+Enter integer 1: 5
+Enter integer 2: 10
+Enter integer 3: 15
+The sum of the integers is: 30
+
 
 
 Result:
@@ -120,10 +351,48 @@ o	If a character is not a space, it may belong to a word. If it's the first non-
 
 
 Program:
-//type your code here
+
+
+
+
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char sentence[1000];
+    int word_count = 0;
+    int i = 0;
+
+    printf("Enter a sentence: ");
+    fgets(sentence, sizeof(sentence), stdin);
+
+    while (sentence[i] != '\0') {
+        if (i == 0 || (isspace(sentence[i - 1]) && !isspace(sentence[i]))) {
+            word_count++;
+        }
+        i++;
+    }
+
+    printf("The number of words in the sentence is: %d\n", word_count);
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
 
 Output:
-//paste your output here
+
+
+
+Enter a sentence: Hello, how are you doing today?
+The number of words in the sentence is: 6
 
 
 
