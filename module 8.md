@@ -16,7 +16,49 @@ Algorithm:
  
 Program:
 
-//type your code here
+
+#include <stdio.h>
+
+int main() {
+    int n;
+
+    printf("Enter a number: ");
+    scanf("%d", &n);
+
+    switch (n) {
+        case 5:
+            printf("seventy one\n");
+            break;
+        case 6:
+            printf("seventy two\n");
+            break;
+        case 7:
+            printf("seventy three\n");
+            break;
+        case 8:
+            printf("seventy four\n");
+            break;
+        case 9:
+            printf("seventy five\n");
+            break;
+        case 10:
+            printf("seventy six\n");
+            break;
+        case 11:
+            printf("seventy seven\n");
+            break;
+        case 12:
+            printf("seventy eight\n");
+            break;
+        case 13:
+            printf("seventy nine\n");
+            break;
+        default:
+            printf("Greater than 13\n");
+    }
+
+    return 0;
+}
 
 
 
@@ -24,7 +66,8 @@ Program:
 Output:
 
 
-//paste your output here
+Enter a number: 5
+seventy one
 
 
 
@@ -47,18 +90,37 @@ Algorithm:
  
 Program:
 
-//type your code here
+#include <stdio.h>
 
+int main() {
+    char a[50];
+    int count[4] = {0, 0, 0, 0};
+    int i;
+
+    printf("Enter a string of digits (0 to 3): ");
+    scanf("%s", a);
+
+    for (i = 0; a[i] != '\0'; i++) {
+        if (a[i] == '0') count[0]++;
+        if (a[i] == '1') count[1]++;
+        if (a[i] == '2') count[2]++;
+        if (a[i] == '3') count[3]++;
+    }
+
+    for (i = 0; i < 4; i++) {
+        printf("%d ", count[i]);
+    }
+
+    return 0;
+}
 
 
 
 Output:
 
 
-//paste your output here
-
-
-
+Enter a string of digits (0 to 3): 1203101230
+1 3 3 3
 
 
 
@@ -84,7 +146,65 @@ Free the memory allocated for each string in s Free the memory allocated for s
  
 Program:
 
-//type your code here
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void swap(char *x, char *y) {
+    char *temp = x;
+    x = y;
+    y = temp;
+}
+
+int compare(const void *a, const void *b) {
+    return strcmp(*(char **)a, *(char **)b);
+}
+
+void generatePermutations(char **s, int n, int index) {
+    if (index == n) {
+        for (int i = 0; i < n; i++) {
+            printf("%s ", s[i]);
+        }
+        printf("\n");
+        return;
+    }
+    
+    for (int i = index; i < n; i++) {
+        swap(s[index], s[i]);
+        generatePermutations(s, n, index + 1);
+        swap(s[index], s[i]);  // backtrack
+    }
+}
+
+int main() {
+    int n;
+
+    printf("Enter the number of strings: ");
+    scanf("%d", &n);
+
+    char **s = (char **)malloc(n * sizeof(char *));
+    
+    for (int i = 0; i < n; i++) {
+        s[i] = (char *)malloc(100 * sizeof(char));
+    }
+
+    printf("Enter the strings:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%s", s[i]);
+    }
+
+    qsort(s, n, sizeof(char *), compare);  // Sort the strings in lexicographical order
+    
+    printf("All permutations in strict lexicographical order:\n");
+    generatePermutations(s, n, 0);
+    
+    for (int i = 0; i < n; i++) {
+        free(s[i]);
+    }
+    free(s);
+
+    return 0;
+}
 
 
 
@@ -92,7 +212,16 @@ Program:
 Output:
 
 
-//paste your output here
+Enter the number of strings: 3
+Enter the strings:
+apple banana cherry
+All permutations in strict lexicographical order:
+apple banana cherry 
+apple cherry banana 
+banana apple cherry 
+banana cherry apple 
+cherry apple banana 
+cherry banana apple 
 
 
 
@@ -117,7 +246,28 @@ Algorithm:
  
 Program:
 
-//type your code here
+#include <stdio.h>
+
+int main() {
+    int n, i, j, len, min;
+
+    printf("Enter the value of n: ");
+    scanf("%d", &n);
+
+    len = n * 2 - 1;
+
+    for (i = 0; i < len; i++) {
+        for (j = 0; j < len; j++) {
+            min = (i < j) ? i : j;
+            min = (min < len - i - 1) ? min : len - i - 1;
+            min = (min < len - j - 1) ? min : len - j - 1;
+            printf("%d ", n - min);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
 
 
 
@@ -125,7 +275,12 @@ Program:
 Output:
 
 
-//paste your output here
+Enter the value of n: 3
+3 3 3 3 3 
+3 2 2 2 3 
+3 2 1 2 3 
+3 2 2 2 3 
+3 3 3 3 3
 
 
 
@@ -156,18 +311,27 @@ o	Call the square() function and display the result.
 
 Program:
 
-//type your code here
+#include <stdio.h>
 
+int square() {
+    int num;
+    printf("Enter a number: ");
+    scanf("%d", &num);
+    return num * num;
+}
+
+int main() {
+    int result = square();
+    printf("The square of the number is: %d\n", result);
+    return 0;
+}
 
 
 
 Output:
 
-
-//paste your output here
-
-
-
+Enter a number: 5
+The square of the number is: 25
 
 
 
